@@ -1,11 +1,10 @@
 package Biblio;
 
-import java.time.LocalDate;
 
 public class Magazine extends Document {
 	private String numero;
 
-    public Magazine(String id, String titre, String auteur, LocalDate datePublication, int nombreDePages, String numero) {
+    public Magazine(String id, String titre, String auteur, String datePublication, int nombreDePages, String numero) {
         super(id, titre, auteur, datePublication, nombreDePages);
         this.numero = numero;
     }
@@ -23,6 +22,11 @@ public class Magazine extends Document {
 
     @Override
     public void afficherDetails() {
-        System.out.println("Magazine - Titre: " + titre + ", Auteur: " + auteur + ", Numéro: " + numero);
+    	 System.out.println("Magazine - ID: " + id
+    	            + ", Titre: " + titre
+    	            + ", Auteur: " + auteur
+    	            + ", Date de Publication: " + datePublication
+    	            + ", Nombre de Pages: " + nombreDePages
+    	            + ", Numéro: " + numero);
     }
 }

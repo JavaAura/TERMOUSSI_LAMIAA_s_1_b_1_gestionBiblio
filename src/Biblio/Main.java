@@ -1,21 +1,24 @@
 package Biblio;
 
 import java.util. Scanner;
-import java.time.LocalDate;
+
+import java.util.List;
+
 
 public class Main {
-	static Scanner s;
-	
+	static Scanner s= new Scanner(System.in);
+	private static Bibliotheque bibliotheque = new Bibliotheque();
 	public static void main(String[] args) {
-		
+	      int n; 
+		do {
 		System.out.println("Bienvenue dans la bibliothèque municipale \n"
 				+ "1. Ajouter un document\n2. Emprunter un document"
 				+ "\n3. Retourner un document\n4. Afficher tous les documents"
 				+ "\n5. Rechercher un document\n6. Quitter");
 		
-				 s = new Scanner(System.in);
-				int n = s.nextInt();
-
+				 
+				 n = s.nextInt();
+				s.nextLine(); //lire l'entree
 				switch (n) {
 				case 1:
 					ajouterDocument();
@@ -38,15 +41,39 @@ public class Main {
 	                 break;
 				default: 
 					System.out.println("Erreur! Sélection invalide.");
-				}
-				
+				} 
+		}while (n != 6);
 	}
 	
 		
-	public static void ajouterDocument() {
-    	
-    }
-	
+	private static void ajouterDocument() {
+	    System.out.print("Type de document (livre/magazine) : ");
+	    String type = s.nextLine();
+
+	    System.out.print("Titre : ");
+	    String titre = s.nextLine();
+	    System.out.print("Auteur : ");
+	    String auteur = s.nextLine();
+	    System.out.print("Date de publication (dd/MM/yyyy) : ");
+	    String datePublication = s.nextLine();
+	    System.out.print("Nombre de pages : ");
+	    int nombreDePages = s.nextInt();
+	   s.nextLine(); 
+
+	    if (type.equalsIgnoreCase("livre")) {
+	        System.out.print("ISBN : ");
+	        String isbn = s.nextLine();
+	        Livre livre = new Livre(null, titre, auteur, datePublication, nombreDePages, isbn);
+	        bibliotheque.ajouterDocument(livre);
+	    } else if (type.equalsIgnoreCase("magazine")) {
+	        System.out.print("Numéro : ");
+	        String numero = s.nextLine();
+	        Magazine magazine = new Magazine(null, titre, auteur, datePublication, nombreDePages, numero);
+	        bibliotheque.ajouterDocument(magazine);
+	    } else {
+	        System.out.println("Type de document invalide.");
+	    }
+	}
     public static void emprunterDocument() {
     	
     }
@@ -56,7 +83,14 @@ public class Main {
     }
     
     public static void afficherDocuments() {
-    	
+    	List<Document> documents = bibliotheque.obtenirTousLesDocuments(); 
+    	 if (documents.isEmpty()) {
+    	        System.out.println("Aucun document n'est disponible dans la bibliothèque.");
+    	    } else {
+    	        for (Document doc : documents) {
+    	            doc.afficherDetails(); 
+    	        }
+    	    }
     }
     
     public static void rechercherDocument() {

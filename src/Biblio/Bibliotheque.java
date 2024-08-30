@@ -22,4 +22,9 @@ public class Bibliotheque {
     private String generateUniqueId() {
         return "document " + compteurId++;  
     }
+    
+
+    public List<Document> obtenirTousLesDocuments() {
+        return this.documents;
+    }
 }
