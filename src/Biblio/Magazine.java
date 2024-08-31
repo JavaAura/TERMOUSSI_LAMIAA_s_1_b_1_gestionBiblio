@@ -12,7 +12,12 @@ public class Magazine extends Document {
 
     @Override
     public void emprunter() {
-        System.out.println("Le magazine '" + titre + "' a été emprunté.");
+    	if (!estEmprunte) {
+            estEmprunte = true;
+            System.out.println("Le magazine '" + titre + "' a été emprunté avec succés.");
+        } else {
+            System.out.println("Le magazine '" + titre + "' est indisponible.");
+        }
     }
 
     @Override

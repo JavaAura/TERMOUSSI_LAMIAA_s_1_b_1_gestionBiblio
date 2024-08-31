@@ -11,7 +11,12 @@ public class Livre  extends Document {
 	    
 	    @Override
 	    public void emprunter() {
-	        System.out.println("Le livre '" + titre + "' a été emprunté.");
+	    	  if (!estEmprunte) {
+	              estEmprunte = true;
+	              System.out.println("Le livre '" + titre + "' a été emprunté avec succés.");
+	          } else {
+	              System.out.println("Le livre '" + titre + "' est indisponible.");
+	          }
 	    }
 	    
 	    @Override
@@ -28,4 +33,6 @@ public class Livre  extends Document {
 	                + ", Nombre de Pages: " + nombreDePages 
 	                + ", ISBN: " + isbn);
 	    }
+	    
+	 
 }

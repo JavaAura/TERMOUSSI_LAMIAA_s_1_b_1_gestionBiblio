@@ -49,7 +49,9 @@ public class Main {
 	private static void ajouterDocument() {
 	    System.out.print("Type de document (livre/magazine) : ");
 	    String type = s.nextLine();
-
+	    if (!type.equalsIgnoreCase("livre")  && !type.equalsIgnoreCase("magazine") ) {
+			   System.out.println("Type de document invalide.");
+		}else {
 	    System.out.print("Titre : ");
 	    String titre = s.nextLine();
 	    System.out.print("Auteur : ");
@@ -59,8 +61,9 @@ public class Main {
 	    System.out.print("Nombre de pages : ");
 	    int nombreDePages = s.nextInt();
 	   s.nextLine(); 
-
-	    if (type.equalsIgnoreCase("livre")) {
+		   
+	  
+	   if (type.equalsIgnoreCase("livre")) {
 	        System.out.print("ISBN : ");
 	        String isbn = s.nextLine();
 	        Livre livre = new Livre(null, titre, auteur, datePublication, nombreDePages, isbn);
@@ -70,11 +73,22 @@ public class Main {
 	        String numero = s.nextLine();
 	        Magazine magazine = new Magazine(null, titre, auteur, datePublication, nombreDePages, numero);
 	        bibliotheque.ajouterDocument(magazine);
-	    } else {
-	        System.out.println("Type de document invalide.");
-	    }
+	    } 
+	 }
 	}
     public static void emprunterDocument() {
+    	 System.out.print("Entrez le titre du document que vous souhaitez emprunter : ");
+    	    String titreRecherche = s.nextLine();
+
+    	    List<Document> documents = bibliotheque.obtenirTousLesDocuments();
+    	    
+    	    for (Document doc : documents) {
+    	        if (doc.titre.equalsIgnoreCase(titreRecherche)) {
+    	        		doc.emprunter(); 
+    	            return;
+    	        }
+    	    }
+    	    System.out.println("Document avec le titre '" + titreRecherche + "' n'a pas été trouvé.");
     	
     }
     
