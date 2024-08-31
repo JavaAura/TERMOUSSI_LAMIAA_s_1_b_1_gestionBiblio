@@ -93,7 +93,19 @@ public class Main {
     }
     
     public static void retournerDocument() {
-    	
+    	System.out.print("Entrez le titre du document que vous souhaitez retourner : ");
+	    String docRetourner = s.nextLine();
+	    List<Document> documents = bibliotheque.obtenirTousLesDocuments();
+	    for (Document doc : documents) {
+	        if (doc.titre.equalsIgnoreCase(docRetourner)) {
+	        		doc.retourner(); 
+	            return;
+	        }else {
+	        	 System.out.println("document invalide");
+	        }
+	        
+	    }
+	    
     }
     
     public static void afficherDocuments() {

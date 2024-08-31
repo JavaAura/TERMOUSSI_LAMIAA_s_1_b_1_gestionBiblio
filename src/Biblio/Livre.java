@@ -21,7 +21,14 @@ public class Livre  extends Document {
 	    
 	    @Override
 	    public void retourner() {
-	        System.out.println("Le livre '" + titre + "' a été retourné.");
+	    	if (estEmprunte) {
+	    		 estEmprunte = false;
+	    		 System.out.println("Le livre '" + titre + "' a été retourné avec succés.");
+	    	}       
+	    	else {
+	    		 System.out.println("Le livre '" + titre + "' a été déja retourné.");
+	    	}
+	    	
 	    }
 	    
 	    @Override
