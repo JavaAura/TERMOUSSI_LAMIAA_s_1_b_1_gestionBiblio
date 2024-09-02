@@ -1,9 +1,11 @@
 package Biblio;
 
+import java.text.ParseException;
 import java.util. Scanner;
-
 import java.util.List;
-
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Main {
 	static Scanner s= new Scanner(System.in);
@@ -44,8 +46,8 @@ public class Main {
 				} 
 		}while (n != 6);
 	}
-	
-		
+	//scanner.close()
+		// unique title
 	private static void ajouterDocument() {
 	    System.out.print("Type de document (livre/magazine) : ");
 	    String type = s.nextLine();
@@ -56,12 +58,38 @@ public class Main {
 	    String titre = s.nextLine();
 	    System.out.print("Auteur : ");
 	    String auteur = s.nextLine();
-	    System.out.print("Date de publication (dd/MM/yyyy) : ");
-	    String datePublication = s.nextLine();
-	    System.out.print("Nombre de pages : ");
-	    int nombreDePages = s.nextInt();
-	   s.nextLine(); 
+	    
+	    LocalDate datePublication = null;
+	    boolean correct=true;
+	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+	    do {
+		    System.out.print("Date de publication (dd/MM/yyyy) : ");
+		    String datePublicationStr  = s.nextLine();
 		   
+	        
+	        try {
+	            datePublication = LocalDate.parse(datePublicationStr, formatter);
+                LocalDate aujourdHui = LocalDate.now();
+                if (datePublication.isAfter(aujourdHui)) {
+                    System.out.println("La date de publication ne peut pas être dans le futur. Veuillez entrer une date correcte.");
+                    correct = false;
+                } else {
+                    correct = true; 
+                }
+	        } catch (DateTimeParseException e) {
+	            System.out.println("Format de date invalide. Veuillez entrer une date au format dd/MM/yyyy.");
+	            correct=false;    
+	        }
+	    }while(!correct);
+	    
+
+	 
+		   
+	   
+	        
+	        System.out.print("Nombre de pages : ");
+		    int nombreDePages = s.nextInt();
+			s.nextLine(); 
 	  
 	   if (type.equalsIgnoreCase("livre")) {
 	        System.out.print("ISBN : ");
@@ -120,6 +148,22 @@ public class Main {
     }
     
     public static void rechercherDocument() {
+    	System.out.print("Entrez le titre du document que vous rechercher: ");
+	    String docRechercher = s.nextLine();
+    	List<Document> documents = bibliotheque.obtenirTousLesDocuments(); 
+    	if(!documents.isEmpty()) {
+    	for (Document doc : documents) {
+    		if (doc.titre.equalsIgnoreCase(docRechercher)) {
+    			doc.afficherDetails();
+    		}else {
+    			  System.out.println("Le document document que vous rechercher est indisponible.");
+    		}
+    	}
+    	}else {
+    		System.out.println("La bibliotheque est vide.");
+    	}
+        
+    }
     	
     }
-}
+

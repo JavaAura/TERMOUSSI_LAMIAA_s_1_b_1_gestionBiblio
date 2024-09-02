@@ -1,5 +1,6 @@
 package Biblio;
 
+import java.time.LocalDate;
 
 
 public abstract class Document {
@@ -7,13 +8,13 @@ public abstract class Document {
 	  	protected String id;
 	    protected String titre;
 	    protected String auteur;
-	    protected String datePublication;
+	    protected LocalDate   datePublication;
 	    protected int nombreDePages;
 	    
 	    protected boolean estEmprunte; 
 
 	    
-	    public Document(String id, String t, String aut, String datePub, int nbrPages) {
+	    public Document(String id, String t, String aut, LocalDate   datePub, int nbrPages) {
 	        this.id = id;
 	        this.titre = t;
 	        this.auteur = aut;

@@ -20,7 +20,7 @@ public class Bibliotheque {
     }
 
     private String generateUniqueId() {
-        return "document " + compteurId++;  
+        return "document_" + compteurId++;  
     }
     
 

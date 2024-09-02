@@ -1,10 +1,11 @@
 package Biblio;
 
+import java.time.LocalDate;
 
 public class Magazine extends Document {
 	private String numero;
 
-    public Magazine(String id, String titre, String auteur, String datePublication, int nombreDePages, String numero) {
+    public Magazine(String id, String titre, String auteur, LocalDate  datePublication, int nombreDePages, String numero) {
         super(id, titre, auteur, datePublication, nombreDePages);
         this.numero = numero;
     }
@@ -22,7 +23,13 @@ public class Magazine extends Document {
 
     @Override
     public void retourner() {
-        System.out.println("Le magazine '" + titre + "' a été retourné.");
+    	if (estEmprunte) {
+   		 estEmprunte = false;
+   		 System.out.println("Le magazine '" + titre + "' a été retourné avec succés.");
+    	}       
+    	else {
+   		 System.out.println("Le magazine '" + titre + "' a été déja retourné.");
+    	}
     }
 
     @Override
