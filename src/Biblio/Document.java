@@ -33,7 +33,4 @@ public abstract class Document {
 	        return estEmprunte;
 	    }
 
-	  /* void setEmprunte(boolean estEmprunte) {
-	        this.estEmprunte = estEmprunte;  //true
-	    }*/
 }

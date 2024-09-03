@@ -47,15 +47,29 @@ public class Main {
 		}while (n != 6);
 	}
 	//scanner.close()
-		// unique title
 	private static void ajouterDocument() {
+		boolean titreValide=true;
+		 String titreEntree = "";
 	    System.out.print("Type de document (livre/magazine) : ");
 	    String type = s.nextLine();
 	    if (!type.equalsIgnoreCase("livre")  && !type.equalsIgnoreCase("magazine") ) {
 			   System.out.println("Type de document invalide.");
 		}else {
-	    System.out.print("Titre : ");
-	    String titre = s.nextLine();
+			do {
+			System.out.print("Titre : ");
+		    titreEntree = s.nextLine();
+		    
+		    List<Document> documents = bibliotheque.obtenirTousLesDocuments();
+		    for (Document doc : documents) {
+		        if (doc.titre.equalsIgnoreCase(titreEntree)) {
+		        	titreValide=false;
+		        	System.out.println("Titre déja disponible!Veuillez entrer un titre différent:");
+		        	}else {
+		        		titreValide=true;
+		        	}
+		    	} 
+			}while(!titreValide);
+	    
 	    System.out.print("Auteur : ");
 	    String auteur = s.nextLine();
 	    
@@ -82,11 +96,6 @@ public class Main {
 	        }
 	    }while(!correct);
 	    
-
-	 
-		   
-	   
-	        
 	        System.out.print("Nombre de pages : ");
 		    int nombreDePages = s.nextInt();
 			s.nextLine(); 
@@ -94,12 +103,12 @@ public class Main {
 	   if (type.equalsIgnoreCase("livre")) {
 	        System.out.print("ISBN : ");
 	        String isbn = s.nextLine();
-	        Livre livre = new Livre(null, titre, auteur, datePublication, nombreDePages, isbn);
+	        Livre livre = new Livre(null, titreEntree, auteur, datePublication, nombreDePages, isbn);
 	        bibliotheque.ajouterDocument(livre);
 	    } else if (type.equalsIgnoreCase("magazine")) {
 	        System.out.print("Numéro : ");
 	        String numero = s.nextLine();
-	        Magazine magazine = new Magazine(null, titre, auteur, datePublication, nombreDePages, numero);
+	        Magazine magazine = new Magazine(null, titreEntree, auteur, datePublication, nombreDePages, numero);
 	        bibliotheque.ajouterDocument(magazine);
 	    } 
 	 }
