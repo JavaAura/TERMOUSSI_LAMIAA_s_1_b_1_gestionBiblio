@@ -20,7 +20,7 @@ public class Main {
 		
 				 
 				 n = s.nextInt();
-				s.nextLine(); //lire l'entree
+				s.nextLine(); 
 				switch (n) {
 				case 1:
 					ajouterDocument();
@@ -150,9 +150,8 @@ public class Main {
     	 if (documents.isEmpty()) {
     	        System.out.println("Aucun document n'est disponible dans la bibliothèque.");
     	    } else {
-    	        for (Document doc : documents) {
-    	            doc.afficherDetails(); 
-    	        }
+    	    	//lambda expression
+    	    	documents.forEach( doc->doc.afficherDetails());
     	    }
     }
     
@@ -161,13 +160,13 @@ public class Main {
 	    String docRechercher = s.nextLine();
     	List<Document> documents = bibliotheque.obtenirTousLesDocuments(); 
     	if(!documents.isEmpty()) {
-    	for (Document doc : documents) {
-    		if (doc.titre.equalsIgnoreCase(docRechercher)) {
-    			doc.afficherDetails();
-    		}else {
-    			  System.out.println("Le document document que vous rechercher est indisponible.");
-    		}
-    	}
+    		documents.forEach(doc->{
+    			if (doc.titre.equalsIgnoreCase(docRechercher)) {
+        			doc.afficherDetails();
+        		}else {
+        			  System.out.println("Le document document que vous rechercher est indisponible.");
+        		}
+    		});
     	}else {
     		System.out.println("La bibliotheque est vide.");
     	}
