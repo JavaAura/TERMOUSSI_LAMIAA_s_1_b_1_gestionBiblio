@@ -35,7 +35,7 @@ public class ValidationInput {
 	            }
 	            isValid = true; 
 	            for (Document doc : documents) {
-	                if (doc.titre.equalsIgnoreCase(title)) {
+	                if (doc.getTitre().equalsIgnoreCase(title)) {
 	                    System.out.println("Titre déjà disponible! Veuillez entrer un titre différent.");
 	                    isValid = false; 
 	                    break; 

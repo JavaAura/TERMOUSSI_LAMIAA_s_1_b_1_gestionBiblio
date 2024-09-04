@@ -13,7 +13,7 @@ public class Bibliotheque {
     
     public void ajouterDocument(Document document) {
         String id = generateUniqueId();
-        document.id = id;  
+        document.setId(id);  
         documents.add(document);
         documentMap.put(id, document);
         System.out.println("Document ajouté avec succès avec l'ID : " + id);

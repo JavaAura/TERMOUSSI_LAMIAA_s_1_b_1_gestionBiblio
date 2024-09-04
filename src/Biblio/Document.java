@@ -5,11 +5,11 @@ import java.time.LocalDate;
 
 public abstract class Document {
 	
-	  	protected String id;
-	    protected String titre;
-	    protected String auteur;
-	    protected LocalDate   datePublication;
-	    protected int nombreDePages;
+	  private String id;
+	  private String titre;
+	  private String auteur;
+	  private LocalDate   datePublication;
+	  private int nombreDePages;
 	    
 	    protected boolean estEmprunte; 
 
@@ -24,13 +24,42 @@ public abstract class Document {
 	        this.estEmprunte = false;
 	    }
 	    
+	    public String getId() {
+	        return id;
+	    }
+
+	    public String getTitre() {
+	        return titre;
+	    }
+
+	    public String getAuteur() {
+	        return auteur;
+	    }
+
+	    public LocalDate getDatePublication() {
+	        return datePublication;
+	    }
+
+	    public int getNombreDePages() {
+	        return nombreDePages;
+	    }
+
+	    public boolean isEstEmprunte() {
+	        return estEmprunte;
+	    }
+
+	    public void setEstEmprunte(boolean estEmprunte) {
+	        this.estEmprunte = estEmprunte;
+	    }
+
+	    public void setId(String id) {
+	        this.id = id;
+	    }
 	    public abstract void emprunter();
 	    public abstract void retourner();
 	    public abstract void afficherDetails();
 	    
 
-	    public boolean isEmprunte() {
-	        return estEmprunte;
-	    }
+
 
 }

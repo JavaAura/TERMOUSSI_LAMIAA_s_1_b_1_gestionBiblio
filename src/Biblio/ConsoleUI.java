@@ -78,7 +78,7 @@ public class ConsoleUI {
 	        List<Document> documents = bibliotheque.obtenirTousLesDocuments();
 
 	        for (Document doc : documents) {
-	            if (doc.titre.equalsIgnoreCase(titreRecherche)) {
+	            if (doc.getTitre().equalsIgnoreCase(titreRecherche)) {
 	                doc.emprunter();
 	                return;
 	            }
@@ -93,7 +93,7 @@ public class ConsoleUI {
 	            System.out.println("La bibliothèque est vide!");
 	        }
 	        for (Document doc : documents) {
-	            if (doc.titre.equalsIgnoreCase(docRetourner)) {
+	            if (doc.getTitre().equalsIgnoreCase(docRetourner)) {
 	                doc.retourner();
 	                return;
 	            } else {
@@ -116,7 +116,7 @@ public class ConsoleUI {
 	        List<Document> documents = bibliotheque.obtenirTousLesDocuments();
 	        if (!documents.isEmpty()) {
 	            documents.forEach(doc -> {
-	                if (doc.titre.equalsIgnoreCase(docRechercher)) {
+	                if (doc.getTitre().equalsIgnoreCase(docRechercher)) {
 	                    doc.afficherDetails();
 	                } else {
 	                    System.out.println("Le document que vous recherchez est indisponible.");
