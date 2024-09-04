@@ -48,74 +48,25 @@ public class Main {
 	}
 	//scanner.close()
 	private static void ajouterDocument() {
-		boolean titreValide=true;
-		 String titreEntree = "";
-	    System.out.print("Type de document (livre/magazine) : ");
-	    String type = s.nextLine();
-	    if (!type.equalsIgnoreCase("livre")  && !type.equalsIgnoreCase("magazine") ) {
-			   System.out.println("Type de document invalide.");
-		}else {
-			do {
-			System.out.print("Titre : ");
-		    titreEntree = s.nextLine();
-		    
-		    List<Document> documents = bibliotheque.obtenirTousLesDocuments();
-		    for (Document doc : documents) {
-		        if (doc.titre.equalsIgnoreCase(titreEntree)) {
-		        	titreValide=false;
-		        	System.out.println("Titre déja disponible!Veuillez entrer un titre différent:");
-		        	}else {
-		        		titreValide=true;
-		        	}
-		    	} 
-			}while(!titreValide);
-	    
-	    System.out.print("Auteur : ");
-	    String auteur = s.nextLine();
-	    
-	    LocalDate datePublication = null;
-	    boolean correct=true;
-	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-	    do {
-		    System.out.print("Date de publication (dd/MM/yyyy) : ");
-		    String datePublicationStr  = s.nextLine();
-		   
-	        
-	        try {
-	            datePublication = LocalDate.parse(datePublicationStr, formatter);
-                LocalDate aujourdHui = LocalDate.now();
-                if (datePublication.isAfter(aujourdHui)) {
-                    System.out.println("La date de publication ne peut pas être dans le futur. Veuillez entrer une date correcte.");
-                    correct = false;
-                } else {
-                    correct = true; 
-                }
-	        } catch (DateTimeParseException e) {
-	            System.out.println("Format de date invalide. Veuillez entrer une date au format dd/MM/yyyy.");
-	            correct=false;    
-	        }
-	    }while(!correct);
-	    
-	        System.out.print("Nombre de pages : ");
-		    int nombreDePages = s.nextInt();
-			s.nextLine(); 
-	  
-	   if (type.equalsIgnoreCase("livre")) {
-	        System.out.print("ISBN : ");
-	        String isbn = s.nextLine();
-	        Livre livre = new Livre(null, titreEntree, auteur, datePublication, nombreDePages, isbn);
-	        bibliotheque.ajouterDocument(livre);
-	    } else if (type.equalsIgnoreCase("magazine")) {
-	        System.out.print("Numéro : ");
-	        String numero = s.nextLine();
-	        Magazine magazine = new Magazine(null, titreEntree, auteur, datePublication, nombreDePages, numero);
-	        bibliotheque.ajouterDocument(magazine);
-	    } 
-	 }
+		List<Document> documents = bibliotheque.obtenirTousLesDocuments();
+        String type = ValidationInput.validateType();
+        String titre = ValidationInput.validateTitle(documents);
+        String auteur = ValidationInput.validateStringInput("Auteur : ");
+        LocalDate datePublication = ValidationInput.validateDatePub();
+        int nombreDePages = ValidationInput.validateNbrPages();
+
+        if (type.equalsIgnoreCase("livre")) {
+            String isbn = ValidationInput.validateIsbn("ISBN : ");
+            Livre livre = new Livre(null, titre, auteur, datePublication, nombreDePages, isbn);
+            bibliotheque.ajouterDocument(livre);
+        } else {
+            String numero = ValidationInput.validateStringInput("Numéro : ");
+            Magazine magazine = new Magazine(null, titre, auteur, datePublication, nombreDePages, numero);
+            bibliotheque.ajouterDocument(magazine);
+        }
 	}
     public static void emprunterDocument() {
-    	 System.out.print("Entrez le titre du document que vous souhaitez emprunter : ");
-    	    String titreRecherche = s.nextLine();
+    	 String titreRecherche = ValidationInput.validateStringInput("Entrez le titre du document que vous souhaitez emprunter : ");
 
     	    List<Document> documents = bibliotheque.obtenirTousLesDocuments();
     	    
@@ -130,9 +81,11 @@ public class Main {
     }
     
     public static void retournerDocument() {
-    	System.out.print("Entrez le titre du document que vous souhaitez retourner : ");
-	    String docRetourner = s.nextLine();
+    	String docRetourner = ValidationInput.validateStringInput("Entrez le titre du document que vous souhaitez retourner : ");
 	    List<Document> documents = bibliotheque.obtenirTousLesDocuments();
+	    if (documents.isEmpty()) {
+	    	 System.out.println("La bibliothèque est vide!");
+	    }
 	    for (Document doc : documents) {
 	        if (doc.titre.equalsIgnoreCase(docRetourner)) {
 	        		doc.retourner(); 
@@ -156,10 +109,10 @@ public class Main {
     }
     
     public static void rechercherDocument() {
-    	System.out.print("Entrez le titre du document que vous rechercher: ");
-	    String docRechercher = s.nextLine();
+    	 String docRechercher = ValidationInput.validateStringInput("Entrez le titre du document que vous recherchez : ");
     	List<Document> documents = bibliotheque.obtenirTousLesDocuments(); 
     	if(!documents.isEmpty()) {
+    		//lambda expression
     		documents.forEach(doc->{
     			if (doc.titre.equalsIgnoreCase(docRechercher)) {
         			doc.afficherDetails();
